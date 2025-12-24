@@ -1,0 +1,6 @@
+,feature,importance
+3,IncidentCause_encoded,0.3930823086676951
+4,hour,0.2278609587628424
+2,Status_encoded,0.21982494148550302
+1,Line_encoded,0.13081322649454288
+0,TransportType_encoded,0.028418564589416585
