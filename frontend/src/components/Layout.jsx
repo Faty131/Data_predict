@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { FaHome, FaChartBar, FaRobot, FaLightbulb, FaMap, FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
+import { FaHome, FaChartBar, FaRobot, FaLightbulb, FaMap, FaSun, FaMoon, FaBars, FaTimes, FaHistory } from 'react-icons/fa';
 import { useTheme } from './ThemeProvider';
 import { useState } from 'react';
 
@@ -14,6 +14,8 @@ const Layout = ({ children }) => {
     { path: '/prediction', label: 'Prédiction', icon: FaRobot },
     { path: '/explainable', label: 'Explication', icon: FaLightbulb },
     { path: '/recommendations', label: 'Recommandations', icon: FaMap },
+    { path: '/history', label: 'Historique', icon: FaHistory },
+    { path: '/comparison', label: 'Comparaison', icon: FaChartBar },
   ];
 
   return (

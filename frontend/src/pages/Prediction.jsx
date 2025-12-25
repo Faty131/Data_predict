@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaBus, FaClock, FaCalendarAlt, FaCloudRain, FaExclamationTriangle, FaRocket, FaMagic, FaChartBar, FaShieldAlt, FaSpinner } from 'react-icons/fa';
+import { FaBus, FaClock, FaCalendarAlt, FaCloudRain, FaExclamationTriangle, FaRocket, FaMagic, FaChartBar, FaShieldAlt, FaSpinner, FaBrain } from 'react-icons/fa';
 
 const Prediction = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +8,8 @@ const Prediction = () => {
     Hour: '',
     Day: '',
     Weather: '',
-    Event: ''
+    Event: '',
+    model_type: 'random_forest'
   });
   const [prediction, setPrediction] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +40,8 @@ const Prediction = () => {
         Hour: parseInt(formData.Hour),
         Day: formData.Day,
         Weather: formData.Weather,
-        Event: formData.Event
+        Event: formData.Event,
+        model_type: formData.model_type
       };
 
       // Appel à l'API ML
@@ -62,6 +64,7 @@ const Prediction = () => {
         delay: result.delay,
         risk: result.risk,
         probability: result.probability,
+        model_used: result.model_used,
         confidence: Math.floor(Math.random() * 20) + 80 // Simulation de confiance
       });
 
@@ -156,6 +159,18 @@ const Prediction = () => {
         { value: '', label: 'Sélectionner' },
         { value: 'Oui', label: '🚨 Oui - Événement majeur' },
         { value: 'Non', label: '✅ Non - Trafic normal' }
+      ]
+    },
+    {
+      name: 'model_type',
+      label: 'Sélectionner le Modèle IA',
+      icon: FaBrain,
+      type: 'select',
+      gradient: 'from-indigo-500 to-purple-500',
+      options: [
+        { value: 'random_forest', label: '🌲 Random Forest (Rapide & Précis)' },
+        { value: 'linear_regression', label: '📈 Régression Linéaire (Léger)' },
+        { value: 'xgboost', label: '🚀 XGBoost (Haute Performance)' }
       ]
     }
   ];
@@ -378,6 +393,20 @@ const Prediction = () => {
                       <div className="text-sm text-gray-600 dark:text-white">Confiance</div>
                     </div>
                   </div>
+
+                  {/* Model Used Badge */}
+                  {prediction.model_used && (
+                    <div className="mb-8 flex justify-center">
+                      <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/30 rounded-full">
+                        <FaBrain className="text-indigo-500 mr-2" />
+                        <span className="text-indigo-700 dark:text-indigo-300 font-semibold">
+                          Modèle: {prediction.model_used === 'random_forest' ? '🌲 Random Forest' : 
+                                   prediction.model_used === 'linear_regression' ? '📈 Régression Linéaire' : 
+                                   '🚀 XGBoost'}
+                        </span>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Recommendations */}
                   <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800">
